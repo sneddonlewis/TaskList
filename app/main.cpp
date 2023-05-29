@@ -8,28 +8,27 @@
 
 #include <iostream>
 #include <stdlib.h>
+#include <memory>
 
 #include "exampleConfig.h"
 #include "example.h"
+#include "Task.h"
 
 /*
- * Simple main program that demontrates how access
- * CMake definitions (here the version number) from source code.
+ * Command Line program to organise tasks.
  */
 int main() {
-  std::cout << "C++ Boiler Plate v"
-            << PROJECT_VERSION_MAJOR
-            << "."
-            << PROJECT_VERSION_MINOR
-            << "."
-            << PROJECT_VERSION_PATCH
-            << "."
-            << PROJECT_VERSION_TWEAK
-            << std::endl;
-  std::system("cat ../LICENSE");
+	std::cout << "Task List" << std::endl << std::endl;
 
-  // Bring in the dummy class from the example source,
-  // just to show that it is accessible from main.cpp.
-  Dummy d = Dummy();
-  return d.doSomething() ? 0 : -1;
+	Task t1{};
+	auto t2 = std::make_unique<Task>("Laundry",
+			"wash the clothes");
+	auto t3 = std::make_shared<Task>("Grooming",
+			"trim beard");
+
+	t1.Title("Gardening").Description("mow the lawn");
+
+	std::cout << t1.Details() << std::endl << std::endl;
+	std::cout << t2->Details() << std::endl << std::endl;
+	std::cout << t3->Details() << std::endl << std::endl;
 }
